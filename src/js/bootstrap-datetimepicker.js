@@ -454,10 +454,16 @@
                 }
 
                 // find the first parent element that has a non-static css positioning
+                var move = { x: 0, y: 0 };
                 if (parent.css('position') === 'static') {
+                    var offset1 = parent.offset();
                     parent = parent.parents().filter(function () {
+                        move.x += $(this).out
                         return $(this).css('position') !== 'static';
                     }).first();
+                    var offset2 = parent.offset();
+                    move.x = offset2.left - offset1.left;
+                    move.y = offset2.top - offset1.top;
                 }
 
                 if (parent.length === 0) {
@@ -465,9 +471,9 @@
                 }
 
                 widget.css({
-                    top: vertical === 'top' ? 'auto' : position.top + element.outerHeight(),
+                    top: vertical === 'top' ? 'auto' : position.top + element.outerHeight() - move.y,
                     bottom: vertical === 'top' ? parent.outerHeight() - (parent === element ? 0 : position.top) : 'auto',
-                    left: horizontal === 'left' ? (parent === element ? 0 : position.left) : 'auto',
+                    left: horizontal === 'left' ? (parent === element ? 0 : position.left - move.x) : 'auto',
                     right: horizontal === 'left' ? 'auto' : parent.outerWidth() - element.outerWidth() - (parent === element ? 0 : position.left)
                 });
             },
