@@ -472,9 +472,9 @@
 
                 widget.css({
                     top: vertical === 'top' ? 'auto' : position.top + element.outerHeight() - move.y,
-                    bottom: vertical === 'top' ? parent.outerHeight() - (parent === element ? 0 : position.top) : 'auto',
+                    bottom: vertical === 'top' ? parent.outerHeight() - (parent === element ? 0 : position.top) + move.y : 'auto',
                     left: horizontal === 'left' ? (parent === element ? 0 : position.left - move.x) : 'auto',
-                    right: horizontal === 'left' ? 'auto' : parent.outerWidth() - element.outerWidth() - (parent === element ? 0 : position.left)
+                    right: horizontal === 'left' ? 'auto' : parent.outerWidth() - element.outerWidth() - (parent === element ? 0 : position.left) + move.x
                 });
             },
 
